@@ -8,7 +8,7 @@
 <ul><li>Fire up an ssh prompt ( you can use putty or other ssh-client) ip address of the router is 192.1.68.1.1 when you connect the router with your PC with a lan cable attaced to LAN port of the router.</li>
 <li>After downloading the firmware, for example, we rename the file [wr841nv9_en_3_14_4_up_boot(131129).bin ] to tlwr841n-firm-orig.bin I uploaded it to our domain so that we could retrieve it using wget in the router. For convenience of users <a href="http://saoslab.com/Downloads/tlwr841n-firm-orig.bin">firmware URL</a> is still accessible.</li>
 <li>Then you run following commands on the shell (this is how the openwrt shell looks like):</li></ul>
-<pre class="brush: cpp; first-line: 1; tab-size: 5; toolbar: false; ">
+<pre class="brush: bash; first-line: 1; tab-size: 5; toolbar: false;">
 
 _____                     ________        __
  |       |.-----.-----.-----.|  |  |  |.----.|  |_
@@ -41,7 +41,7 @@ Writing from /tmp/tlwr841n-firm-orig.bin to firmware ...  [e]Failed to erase blo
 
 <p>We create a new firmware file stripping those bytes from the original.</p>
 
-<pre class="brush: cpp; first-line: 1; tab-size: 5; toolbar: false; ">root@OpenWrt:/tmp# dd if=tlwr841n-firm-orig.bin of=tplink.bin skip=257 bs=512
+<pre class="brush: bash; first-line: 1; tab-size: 5; toolbar: false;">root@OpenWrt:/tmp# dd if=tlwr841n-firm-orig.bin of=tplink.bin skip=257 bs=512
 7680+0 records in
 7680+0 records out
 
@@ -64,4 +64,4 @@ Rebooting system...</pre>
 <p>However, to be safe I uploaded the firmware (this time with original firmware bin file) again using upgrade firmware option in the menu of web UI: System Tools -> Upgrade Firmware.</p>
 
 <h3>Fixing Back Openwrt After mtd Failure</h3>
-<p style="text-align:left">After you got an error message applying mtd command as mentioned before and you decide that you will stick with openwrt you can do that. However, you must upload an openwrt firmware using sysupgrade command. But, you will face a new problem after performing sysupgrade. Your router will forget root password. So, you cannot login using ssh or access using luci Web Interface. But, there is nothing to panic. You still can login using telnet to 192.168.1.1 and apply new password using passwd command. That'll fix the problem. Now, you can login using ssh to make further changes as per your requirement.</p>
+<p style="text-align:left">After you got an error message applying mtd command as mentioned before and you decide that you will stick with openwrt instead of going back to stock firmware you can do that. However, you must upload an openwrt firmware using sysupgrade command. But, you will face a new problem after performing sysupgrade. Your router will forget root password. So, you cannot login using ssh or access using luci Web Interface. But, there is nothing to panic. You still can login using telnet to 192.168.1.1 and apply new password using passwd command. That'll fix the problem. Now, you can login using ssh to make further changes as per your requirement.</p>
