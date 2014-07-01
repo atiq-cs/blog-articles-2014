@@ -1,0 +1,51 @@
+<p>There are 3 ways of installing google-chrome.
+<ul>
+<li>Using yum (or apt-get for ubuntu), setting up with google's repository in yum configuration file or ubuntu's source.lst</li>
+<li>Locally download chrome rpm or debian package and apply yum localinstall command</li>
+<li>Download all dependencies manually and install them one by one, then install google-chrome package.</li>
+</ul></p>
+<h3>Using yum on yum based system (Fedora Core, RHEL, Cent-OS etc)</h3>
+<p>To enable google's yum repository add a repo file inside directory /etc/yum.repos.d/ named google-chrome.repo</p>
+<p>For 32 bit systems contents should be like this:
+<pre class="brush: plain;">[google-chrome]
+name=google-chrome - 32-bit
+baseurl=http://dl.google.com/linux/chrome/rpm/stable/i386
+enabled=1
+gpgcheck=1
+gpgkey=http://dl-ssl.google.com/linux/linux_signing_key.pub</pre>
+</p>
+<p>For 64 bit systems contents should be like this:
+<pre class="brush: plain;">[google-chrome]
+name=google-chrome - 64-bit
+baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=http://dl-ssl.google.com/linux/linux_signing_key.pub</pre></p>
+<p>The content is almost similar to this post: <a href="http://www.if-not-true-then-false.com/2010/install-google-chrome-with-yum-on-fedora-red-hat-rhel/">Install Google Chrome on Fedora 17/16, CentOS/Red Hat (RHEL) 6.3</a>. But if you notice carefully, you will find for the signing key https is changed to http. The reason behind is that <a href="https://dl-ssl.google.com/linux/linux_signing_key.pub">https://dl-ssl.google.com/linux/linux_signing_key.pub</a> is not available most of the time. Because yum and rpm will not be able verify with signing key they will fail to install the google-chrome package. If you can access the file from https then using https will be okay. Otherwise you may end up having these errors,
+<pre class="brush: plain;">Error: failure: No more mirrors to try.</pre></p>
+<p>or
+<pre class="brush: plain;">GPG key retrieval failed: [Errno 14] problem making ssl connection</pre></p>
+<p>Now apply yum install command to install google-chrome
+<pre class="brush: bash;"># yum install google-chrome</pre></p>
+<p>If you want to install a stable release of google-chrome apply this command,
+<pre class="brush: bash;"># yum install google-chrome-stable</pre></p>
+<p>If you want to install a beta release of google-chrome apply this command,
+<pre class="brush: bash;"># yum install google-chrome-beta</pre></p>
+<p>With RHEL 6 you might run into issues while installing google-chrome. Please check <a title="Installing Google Chrome on RHEL" href="http://www.if-not-true-then-false.com/2013/install-chromium-on-centos-red-hat-rhel/">if-not-true-then-false's blog</a> for solution.</p>
+<h3>Using apt-get on debian system (ubuntu etc)</h3>
+<p>Add signing key
+<pre class="brush: bash;"># wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -</pre></p>
+<p>Add google repository to the sources list
+<pre class="brush: bash;"># sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" &gt;&gt; /etc/apt/sources.list.d/google.list'</pre></p>
+<p>Update and install chrome</p>
+<pre class="brush: bash;"># sudo apt-get update
+# sudo apt-get install google-chrome-stable</pre>
+<p>For Ubuntu's new release 13.04 if you face following error "<span style="white-space: pre-wrap;">Error: Dependency is not satisfiable: libudev0(&gt;=147)</span>" use the beta version of chrome which has already resolved it.
+<pre class="brush: bash;"># sudo apt-get install google-chrome-beta</pre></p>
+<p>Chromium project has details on the issue <a href="https://code.google.com/p/chromium/issues/detail?id=226002">here</a>.</p>
+<h3>Installing using yum without setting repository</h3>
+<p>Download google chrome linux package first from Chrome's <a href="https://www.google.com/intl/en/chrome/browser/">page</a>. Apply this command in the directory where you downloaded the file,
+<pre class="brush: bash;">yum localinstall google-chrome-beta_current_i386.rpm</pre></p>
+<p>If you want to install the package manually the command will be like this:
+<pre class="brush: bash;">sudo dpkg -i google-chrome-beta_current_i386.deb</pre></p>
+<p>Please visit this post: <a href="http://sa-os.blogspot.com/2009/12/google-chrome-in-fedora-core-linux.html">how to Install Google Chrome on Linux</a>&nbsp;to see an example how all the dependencies have been resolved and installed on Fedora Core.</p>
