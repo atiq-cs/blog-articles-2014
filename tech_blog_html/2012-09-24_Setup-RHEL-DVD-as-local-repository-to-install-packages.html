@@ -1,0 +1,17 @@
+<p>Though updating through Redhat Channel using yum is the best way to update and install packages on RHEL System there may be necessities sometimes for installing packages using RHEL DVD. It can come as handy even when there is internet configuration problem or in case of other failures. The procedure to setup a local repository is simple. First, you have to insert the RHEL DVD into the DVD drive. DVD will be mounted in GUI in a while. Then, you have to apply this command to see in which location it is mounted,</p>
+<pre class="brush: bash;"># ls /media/
+RHEL_6.2 x86_64 Disc 1</pre>
+<p>The path is essential; it will be used to configure local repo.</p>
+<p>Create a repo file in /etc/yum.repos.d/. Change the base path with the directory path that you have got previously. For example, I have create this repo file with following contents,</p>
+<pre class="brush: bash;"># cat /etc/yum.repos.d/DVD.repo
+
+[RHEL-Local-Repository]
+name=RHEL Local Repository
+baseurl=file:///media/RHEL_6.2\ x86_64\ Disc\ 1/
+enabled=1
+gpgcheck=0</pre>
+<p>Now you can apply yum commands to modify package configurations of your system. For example, this command will list the available packages,</p>
+<pre class="brush: bash;"># yum list</pre>
+<p>Information also applies to other yum based distributions like Fedora Core, Cent-OS etc.<br /></p>
+<h3>Related Links:</h3>
+<p><a href="https://access.redhat.com/knowledge/solutions/7227">How do I configure a yum local repository to be able to access a DVD ISO via HTTP on Red Hat Enterprise Linux?</a></p>
