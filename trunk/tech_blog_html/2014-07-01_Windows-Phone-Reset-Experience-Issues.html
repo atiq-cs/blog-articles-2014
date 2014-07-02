@@ -1,12 +1,38 @@
-<p>For safety of your data, first, I assume that, to follow provided instruction on this article, you are using a USB stick which does not contain valuable data or you have a backup. I also assume that you have downloaded or acquired the ISO of the OS you want to put on the USB stick. Second, most of the commands in this article requires root privilege. So have a shell for root or make sudo.</p>
+<p><strong>This article discusses following</strong></p>
+<ul><li>What information we lose when we reset Windows Phone</li>
+<li>How to back up Windows Phone Data and Settings</li>
+<li>test 1</li>
+<li>test 1</li></ul>
 
-<h3>Tools on Windows</h3>
-<p>Following tools with GUI on Windows can create bootable linux media using USB Stick.</p>
-<ul><li><a href="https://fedorahosted.org/liveusb-creator/">Live USB Creator: it also has linux release</a>: funny thing is, this also works with Cent OS and RHEL ISO release. You might need to use older versions for older releases of those OSs.</li>
-<li><a href="http://unetbootin.sourceforge.net/">UNetbootin</a>: it supports most of the Linux/Unix OSs.</li>
-<li><a href="http://puppylinux.org/wikka/BootFlash">BootFlash</a>: especially used for puppy Linux</li>
-<li><a href="http://www.winimage.com/">WinImage</a>: you can copy a DVD/CD or filesystem image using this tool</li></ul>
-<p>These are easy to use tools. Hence, we are going to skip to Linux options to provide details.</p>
+<h3>Resetting Windows Phone</h3>
+<h4>Possible Reasons Behind Resetting Windows Phone</h4>
+<p>One of the most common reason for resetting Windows Phone is the necessity of changing Windows Live ID. Microsoft has created uncomfortable situation regarding use of Live ID on applications that won’t allow you to change to another Live ID easily. Though it is possible to add several live IDs for syncing contacts, mail etc they won’t be used in some important services such as Market Place (required for application update), Windows Phone Skydrive. For this reason, some people are forced to change Live ID by resetting Windows Phone.</p>
+
+<p>Before resetting Windows Phone it is useful to know what information you will lose after performing reset,</p>
+<h4>Information Lost after Resetting Windows Phone</h4>
+<p>Here is a tentative list of data/information you will lose after the reset procedure is complete,</p>
+<ul><li>Messages (SMS, chat conversations using Live)</li>
+<li>Emails</li>
+<li>Contacts, Calendar, Tasks etc</li>
+<li>Theme, ringtones etc settings, WIFI passwords and menu customizations</li>
+<li>All of your Windows Phone Applications installed via Market Place and data</li>
+<li>Music, Video, Podcasts etc that were synced using Zune</li>
+<li>Internet Explorer history and Settings</li></ul>
+<p>Basically, the Phone contains the settings and content of a new windows phone where you lose all information stored in a long time. You will see all memory released and available.</p>
+
+<h4>Backup before Reset</h4>
+<p>Following backup can help minimize the disaster,</p>
+<ul><li>Settings: There are ways to backup settings though in Windows Phone 7 this option might not be available i.e., not availabe on the Windows Phone 7 manufactured by HTC. Here is a place with detail instruction on backing up: <a href="http://www.windowsphone.com/en-us/how-to/wp8/settings-and-personalization/back-up-my-stuff">windowsphone.com/en-us/how-to/wp8/settings-and-personalization/back-up-my-stuff</a></li>
+<li>Emails</li>
+<li>Contacts, Calendar, Tasks etc</li>
+<li>Theme, ringtones etc settings, WIFI passwords and menu customizations</li>
+<li>All of your Windows Phone Applications installed via Market Place and data</li>
+<li>Music, Video, Podcasts etc that were synced using Zune</li>
+<li>Internet Explorer history and Settings</li></ul>
+
+
+<h4>Reset Procedure</h4>
+<p>Reset procedure is trivial. You can go ahead and reset following official instruction at <a href="http://www.windowsphone.com/en-us/how-to/wp8/settings-and-personalization/reset-my-phone"windowsphone.com/en-us/how-to/wp8/settings-and-personalization/reset-my-phone</a></p>
 
 <h3>Using dd on Linux</h3>
 <p>One of the easiest procedure is to use dd command to copy the ISO into target device. It is trivial yet powerful. However, it rewrites partition table of the USB drive and might mess up the partition table. But, it is not a problem. After experiments are done, to fix/cleanup partition table of a drive you can always follow: <a href="http://tech.saoslab.com/post/2013/03/18/cleanup-corrupt-partition-table">tech.saoslab.com/post/2013/03/18/cleanup-corrupt-partition-table</a> to get your USB drive back at original condition. Following command puts the ISO into the USB drive sdX.</p>
