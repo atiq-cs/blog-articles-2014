@@ -6,48 +6,59 @@
 </ul>
 
 <h2>Table of Contents</h2>
+
 <ul>
-<li><a href="#heading01">Introduction</a></li>
-<ul><li><a href="#heading0001">The Problem</a></li></ul>
+	<li><a href="#heading01">Introduction</a>
 
-<li><a href="#heading02">Background</a></li>
-<ul><li><a href="#heading0201">Popular Solutions using Other Players</a></li>
-<li><a href="#heading0202">Popular Solutions using WMP Directshow</a></li>
-<li><a href="#heading0203">WMP 'Native' Solution (Primary focus of this article)</a></li></ul>
-
-<li><a href="#heading03">Developing plugin for Windows Media Player</a></li>
-<ul><li><a href="#heading0301">Setting up Plugin Wizard with Visual Studio</a></li>
-<li><a href="#heading0302">Choosing Plugin Type</a></li></ul>
-
-<li><a href="#heading04">Code Analysis</a></li>
-<ul><li><a href="#heading0401">Core Logic</a></li>
-<li><a href="#heading0402">Basic Functions and Use of Code</a></li></ul>
-
-<li><a href="#heading05">SubRip to SAMI Conversion</a></li>
-<ul><li><a href="#heading0501">Introduction</a></li>
-<li><a href="#heading0502">Conversion - Core Logic</a></li>
-<li><a href="#heading0503">Handling Text Encoding Formats During File I/O</a></li>
-<li><a href="#heading0504">Where are encoding and decoding procedures?</a></li></ul>
-
-<li><a href="#heading06">Plugin Properties/Configuration Dialog Box</a></li>
-<ul><li><a href="#heading0601">Implementation</a></li></ul>
-
-
-<li><a href="#heading07">How does the Plugin Support Other Languages and Unicode?</a></li>
-
-<li><a href="#heading08">Features yet to implement</a></li>
-
-<li><a href="#heading09">Source and Builds</a></li>
-<ul><li><a href="#heading0901">Acquiring Source</a></li>
-<li><a href="#heading0902">64 bit builds</a></li>
-<li><a href="#heading0903">32 bit builds</a></li></ul>
-
-<li><a href="#heading10">Enabling Caption/Subtitle</a></li>
-
-<li><a href="#heading11">Installing Plugin without building from Code</a></li>
-<li><a href="#heading12">Tips and Tricks</a></li>
-
-<li><a href="#heading13">Conclusion</a></li>
+	<ul>
+		<li><a href="#heading0001">The Problem</a></li>
+	</ul>
+	</li>
+	<li><a href="#heading02">Background</a>
+	<ul>
+		<li><a href="#heading0201">Popular Solutions using Other Players</a></li>
+		<li><a href="#heading0202">Popular Solutions using WMP Directshow</a></li>
+		<li><a href="#heading0203">WMP &#39;Native&#39; Solution (Primary focus of this article)</a></li>
+	</ul>
+	</li>
+	<li><a href="#heading03">Developing plugin for Windows Media Player</a>
+	<ul>
+		<li><a href="#heading0301">Setting up Plugin Wizard with Visual Studio</a></li>
+		<li><a href="#heading0302">Choosing Plugin Type</a></li>
+	</ul>
+	</li>
+	<li><a href="#heading04">Code Analysis</a>
+	<ul>
+		<li><a href="#heading0401">Core Logic</a></li>
+		<li><a href="#heading0402">Basic Functions and Use of Code</a></li>
+	</ul>
+	</li>
+	<li><a href="#heading05">SubRip to SAMI Conversion</a>
+	<ul>
+		<li><a href="#heading0501">Introduction</a></li>
+		<li><a href="#heading0502">Conversion - Core Logic</a></li>
+		<li><a href="#heading0503">Handling Text Encoding Formats During File I/O</a></li>
+		<li><a href="#heading0504">Where are encoding and decoding procedures?</a></li>
+	</ul>
+	</li>
+	<li><a href="#heading06">Plugin Properties/Configuration Dialog Box</a>
+	<ul>
+		<li><a href="#heading0601">Implementation</a></li>
+	</ul>
+	</li>
+	<li><a href="#heading07">How does the Plugin Support Other Languages and Unicode?</a></li>
+	<li><a href="#heading08">Features yet to implement</a></li>
+	<li><a href="#heading09">Source and Builds</a>
+	<ul>
+		<li><a href="#heading0901">Acquiring Source</a></li>
+		<li><a href="#heading0902">64 bit builds</a></li>
+		<li><a href="#heading0903">32 bit builds</a></li>
+	</ul>
+	</li>
+	<li><a href="#heading10">Enabling Caption/Subtitle</a></li>
+	<li><a href="#heading11">Installing Plugin without building from Code</a></li>
+	<li><a href="#heading12">Tips and Tricks</a></li>
+	<li><a href="#heading13">Conclusion</a></li>
 </ul>
 
 <h2><a id="heading01" name="heading01">Introduction</a></h2>
@@ -99,7 +110,6 @@
 
 <h2><a id="heading03" name="heading03">Developing plugin for Windows Media Player</a></h2>
 
-
 <h3><a id="heading0301" name="heading0301">Setting up Plugin Wizard with Visual Studio</a></h3>
 
 <p><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/dd758070(v=vs.85).aspx">Windows Media Player SDK on msdn</a> provides documentation on development of Windows Media Player Plug-ins. Therefore, for detailed documentation on the subject please navigate to <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/dd564682(v=vs.85).aspx" target="_blank" title="Documentation on Windows Media Player Plug-ins">Windows Media Player Plug-ins on msdn</a>.</p>
@@ -150,7 +160,7 @@ Param=&quot;FALLBACK_LCID = 1033&quot;
 
 <h2><a id="heading04" name="heading04">Code Analysis</a></h2>
 
-<h3><a id="heading0401" name="heading0401">Core Logic</h3>
+<h3><a id="heading0401" name="heading0401">Core Logic</a></h3>
 
 <p>Our Plugin application precisely does following things:</p>
 
@@ -163,7 +173,7 @@ Param=&quot;FALLBACK_LCID = 1033&quot;
 
 <p>Besides that, I have also tried to optimize code and follow standard procedure to ignore any kind of memory leak as I am using C++.</p>
 
-<h3><a id="heading0402" name="heading0402">Basic Functions and Use of Code</h3>
+<h3><a id="heading0402" name="heading0402">Basic Functions and Use of Code</a></h3>
 
 <p>Following functions implement the operations mentioned in &#39;core logic&#39; section:</p>
 
@@ -195,8 +205,7 @@ Param=&quot;FALLBACK_LCID = 1033&quot;
 
 <p>We add our code inside events cpp file (WMPNativeSubtitleevents.cpp)</p>
 
-<pre lang="C++">
-case wmposMediaOpen:
+<pre lang="C++">case wmposMediaOpen:
 {
  // Update because file can be reopened
  UpdateMediaFilePath();
@@ -213,14 +222,11 @@ case wmposMediaOpen:
   break;
  }
  break;
-} 
-
-</pre>
+}</pre>
 
 <p>The functions that have been called from this source file are defined in WMPNativeSubtitle.cpp. Let&#39;s mention what we add in that source file and header file. Following declarations are added to header file &quot;WMPNativeSubtitle.h&quot; inside declaration of class CWMPNativeSubtitle:</p>
 
-<pre lang="C++">
-/////////////////////////////////////////////////////////////////////////////
+<pre lang="C++">/////////////////////////////////////////////////////////////////////////////
 // CWMPNativeSubtitle
 class ATL_NO_VTABLE CWMPNativeSubtitle : 
     public CComObjectRootEx&lt;CComSingleThreadModel&gt;,
@@ -250,28 +256,22 @@ private:
  BOOL CaptionAlreadyAvailable();
  LPTSTR GetSubtitleFilePath();
  void UpdateMediaFilePath();
-};
-
-</pre>
+};</pre>
 
 <p>At the end of same header file we add following declarations:</p>
 
-<pre lang="C++">
-BOOL FAILMSG(HRESULT hr);
+<pre lang="C++">BOOL FAILMSG(HRESULT hr);
 BOOL FileExists(TCHAR * file);
 BOOL FileExtNotSupportedByPlugin(LPCTSTR sFile);
-BOOL StringEndsWith(LPCTSTR str, LPCTSTR suffix); </pre>
+BOOL StringEndsWith(LPCTSTR str, LPCTSTR suffix);</pre>
 
 <p>We include header file for conversion from srt to SAMI in cpp file (WMPNativeSubtitle.cpp).</p>
 
-<pre lang="C++">
-#include &quot;SAMIConversion.h&quot;  
-</pre>
+<pre lang="C++">#include &quot;SAMIConversion.h&quot;  </pre>
 
 <p>Afterwards, we add function definitions into the same cpp file:</p>
 
-<pre lang="C++">
-/////////////////////////////////////////////////////////////////////////////
+<pre lang="C++">/////////////////////////////////////////////////////////////////////////////
 // CWMPNativeSubtitle::UpdateMediaFilePath
 // Updates member variable string containing media file path
 void CWMPNativeSubtitle::UpdateMediaFilePath() {
@@ -290,7 +290,7 @@ void CWMPNativeSubtitle::UpdateMediaFilePath() {
  m_sFilePath = new TCHAR[sfnSize];
  _tcscpy_s(m_sFilePath, sfnSize, sFileName);
  ::SysFreeString(sFileName);
-}  </pre>
+}</pre>
 
 <p>The function allocates necessary space and acquires media file path using <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/dd563238(v=vs.85).aspx" target="_blank" title="msdn - get_URL">get_URL method</a> of COM interface <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/dd563216(v=vs.85).aspx" target="_blank" title="msdn - IWMPCore">IWMPCore</a>.</p>
 
@@ -698,7 +698,7 @@ LRESULT OnOK(WORD wNotifyCode, WORD wID, HWND hwndCtl, BOOL&amp; fHandled)
 &lt;SYNC Start=&quot;272000&quot;&gt;
 &lt;p class=&quot;SACAPTION&quot;&gt;
  Long, long live the walls we crashed through&lt;br&gt;
- ????.???? ??? ????????? ?? ?? ?? ??????
+ زنده.زنده باد دیوارهایی که در هم شکستیم
 &lt;/p&gt; </pre>
 
 <p>When we load it with the relevant media file the rendering of caption looks like the one in screenshot,</p>
@@ -759,6 +759,7 @@ void SubToSAMIConverter::EmbedUnicodeSymbols(LPWSTR pSubStr, LPWSTR pLine) {
 </ul>
 
 <h3><a id="heading08" name="heading08">Features yet to implement</a></h3>
+
 <p>Here is a tentative list of features to implement,</p>
 
 <ul>
@@ -769,7 +770,8 @@ void SubToSAMIConverter::EmbedUnicodeSymbols(LPWSTR pSubStr, LPWSTR pLine) {
 </ul>
 
 <h2><a id="heading09" name="heading09">Source and Builds</a></h2>
-<h4><a id="heading0901" name="heading0901">Acquiring Source</h4>
+
+<h4><a id="heading0901" name="heading0901">Acquiring Source</a></h4>
 
 <p>There are two ways to get the source code of the project.</p>
 
@@ -778,9 +780,11 @@ void SubToSAMIConverter::EmbedUnicodeSymbols(LPWSTR pSubStr, LPWSTR pLine) {
 	<li><strong>Using code.google.com:</strong> Project is located at <a href="http://code.google.com/p/wmp-native-subtitle-plugin/">http://code.google.com/p/wmp-native-subtitle-plugin/</a>. For updated source code you can checkout source following instructions at: <a href="http://code.google.com/p/wmp-native-subtitle-plugin/source/checkout">http://code.google.com/p/wmp-native-subtitle-plugin/source/checkout</a></li>
 </ul>
 
-<h4><a id="heading0902" name="heading0902">64 bit builds</h4>
+<h4><a id="heading0902" name="heading0902">64 bit builds</a></h4>
 
-<p>If you wish to use 64 bit plugin please set 64 bit Windows Media Player as default. You can find instructions on <a href="http://answers.microsoft.com/en-us/windows/forum/pictures/how-can-i-set-windows-media-player-64-bits-version/982a3d0b-16cd-47c8-b579-101166acb514">Microsoft Answers page</a> on how to set 64 bit Windows Media Player as default. If you have downloaded source using attached zip please use the zip archive mentioning x64. Open the solution file with Visual Studio. After building the project we get an output dll file. <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/dd564577(v=vs.85).aspx">msdn documentation</a> suggests running plugin project using Visual Studio with administrator privilege. UI Plugin Project generates a dll file which has to be registered into the system using regsvr32 command that requires admin privilege. However, I built the project as regular user. Later, I applied the command manually using a command prompt with admin privilege. Note, you have to provide correct path of the dll file in the command,</p>
+<p><a id="heading0902" name="heading0902"> </a></p>
+
+<p><a id="heading0902" name="heading0902">If you wish to use 64 bit plugin please set 64 bit Windows Media Player as default. You can find instructions on </a><a href="http://answers.microsoft.com/en-us/windows/forum/pictures/how-can-i-set-windows-media-player-64-bits-version/982a3d0b-16cd-47c8-b579-101166acb514">Microsoft Answers page</a> on how to set 64 bit Windows Media Player as default. If you have downloaded source using attached zip please use the zip archive mentioning x64. Open the solution file with Visual Studio. After building the project we get an output dll file. <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/dd564577(v=vs.85).aspx">msdn documentation</a> suggests running plugin project using Visual Studio with administrator privilege. UI Plugin Project generates a dll file which has to be registered into the system using regsvr32 command that requires admin privilege. However, I built the project as regular user. Later, I applied the command manually using a command prompt with admin privilege. Note, you have to provide correct path of the dll file in the command,</p>
 
 <pre lang="C++">
 regsvr32 &quot;F:\Sourcecodes\Plugin-App\WMPNativeSubtitle\x64\Release\WMPNativeSubtitle_plugin_x64.dll&quot;     </pre>
@@ -845,7 +849,7 @@ regsvr32 &quot;F:\Sourcecodes\Plugin-App\WMPNativeSubtitle\x64\Release\WMPNative
 <pre lang="C++">
 regsvr32 &quot;F:\Plugin\WMPNativeSubtitle_plugin_x64.dll&quot;      </pre>
 
-<p>To install the 32 bit plugin, modify the file name to exclude "_x64",</p>
+<p>To install the 32 bit plugin, modify the file name to exclude &quot;_x64&quot;,</p>
 
 <pre lang="C++">
 regsvr32 &quot;F:\Plugin\WMPNativeSubtitle_plugin.dll&quot;       </pre>
@@ -883,4 +887,7 @@ regsvr32 &quot;F:\Plugin\WMPNativeSubtitle_plugin.dll&quot;       </pre>
 <p>October 2013 - <strong>Plug-In developed</strong></p>
 
 <p>May 8, 2014 - article, first revision</p>
+
 <p>June 16, 2014 - article, second revision</p>
+
+<p>June 21, 2014 - article, third revision</p>
