@@ -1,6 +1,6 @@
 <p><strong>This article covers following topics:</strong></p>
 <ul><li>Installing prerequisites to prepare for build</li>
-<li>How Mozilla is built from source</li>
+<li>How Mozilla is built from source on Windows</li>
 <li>How to create setup installer</li>
 <li>Building Custom Firefox</li>
 <li>Debugging Firefox</li></ul>
@@ -23,9 +23,9 @@
 <p>Click agree and continue the installation. The installer does not modify the system except probably it creates a directory in C:\Users\UserName\.mozbuild and probably modifies the system path variable (has to be checked).</p>
 
 <h3>Acquiring Source</h3>
-<p>Let's start mingw32 bash tool by clicking one of the <strong>start-shell-msvcXXXX.bat</strong> files.
-
-Since our system has VS 2023. We start <strong>start-shell-msvc2013.bat</strong>. The prompt looks like this after I applied 'bash --version' command,</p>
+<p>Let's start mingw32 bash tool by clicking one of the <strong>start-shell-msvcXXXX.bat</strong> files.</p>
+<p id="image"><a href="http://4.bp.blogspot.com/-9OZvMFfEduU/U7P7Yncw6aI/AAAAAAAABk4/Ovjoqm0zlrQ/s1600/MozBuild-Files.png" title="Click image to zoom - Mozilla Build Mingw32 prompt batch files"><img src="http://4.bp.blogspot.com/-9OZvMFfEduU/U7P7Yncw6aI/AAAAAAAABk4/Ovjoqm0zlrQ/s320/MozBuild-Files.png" /></a></p>
+<p>Since our system has VS 2023. We start <strong>start-shell-msvc2013.bat</strong>. The prompt looks like this after I applied 'bash --version' command,</p>
 
 <pre class="brush: plain; first-line: 1; tab-size: 5; toolbar: false;">"Mozilla tools directory: H:\mozilla-build\"
 Visual C++ 11 directory: C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\
@@ -397,14 +397,18 @@ For more information on what to do now, see https://developer.mozilla.org/docs/D
 SA@WorkStation /h/mozilla-source/mozilla-central
 $ </pre>
 <p>Build is successful, therefore, we can run this nightly build of firefox,</p>
+<pre class="brush: bash; first-line: 1; tab-size: 5; toolbar: false;">$ ./mach run</pre>
+<p>Firefox nightly build starts with checking compatibility of Add-Ons,</p>
 <p id="image"><a href="http://4.bp.blogspot.com/-jdxh9osbTMk/U7P7ZS3j5JI/AAAAAAAABlE/TDkn8fTCKJc/s1600/Mozilla-Starting.png" title="Click image to zoom - Checking Add-ons"><img src="http://4.bp.blogspot.com/-jdxh9osbTMk/U7P7ZS3j5JI/AAAAAAAABlE/TDkn8fTCKJc/s1600/Mozilla-Starting.png" /></a></p>
+<p>A moment later, Firefox shows up,</p>
 <p id="image"><a href="http://2.bp.blogspot.com/-cXNI3ZmISQk/U7P7Y5iPxpI/AAAAAAAABk0/yISFyO0uESs/s1600/Mozilla-FF-Nightly.png" title="Click image to zoom - Nightly Running"><img src="http://2.bp.blogspot.com/-cXNI3ZmISQk/U7P7Y5iPxpI/AAAAAAAABk0/yISFyO0uESs/s1600/Mozilla-FF-Nightly.png" /></a></p>
+<p>If we click on the About from Help Section from the Menu button on top right side corner of the window we get about dialog box of the nightly build,</p>
 <p id="image"><a href="http://1.bp.blogspot.com/-QWxVR80C9Y0/U7P7YktrhcI/AAAAAAAABkw/6k9V2kXKplw/s1600/About_Nightly.png" title="Click image to zoom - About Nightly Build"><img src="http://1.bp.blogspot.com/-QWxVR80C9Y0/U7P7YktrhcI/AAAAAAAABkw/6k9V2kXKplw/s1600/About_Nightly.png" /></a></p>
 
-<pre class="brush: bash; first-line: 1; tab-size: 5; toolbar: false;">$ ./mach run</pre>
-<p>Occasionally, you might get an error while trying to build that says to run mach clobber as incremental build is not working. In that case run this, and, run build again,</p>
+<p>Occasionally, you might get an error while trying to build that says to run mach clobber as incremental build is not working. In that case, run commands as displayed below,</p>
 <pre class="brush: bash; first-line: 1; tab-size: 5; toolbar: false;">$ ./mach clobber
 $ ./mach build</pre>
+<p>Then build completes successfully.</p>
 <h4>Building Mozilla Firefox Setup Installer</h4>
 <p>It can be difficult to figure out how to build  the installer. Actually, it's pretty easy. If your .mozconfig file contains following line,</p>
 <pre class="brush: plain; first-line: 1; tab-size: 5; toolbar: false;">mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/obj-ff</pre>
@@ -423,14 +427,14 @@ $ ../build/pymake/make.py clean</pre>
 <pre class="brush: bash; first-line: 1; tab-size: 5; toolbar: false;">$ mach build-backend -b VisualStudio</pre>
 
 <p>However, Visual Studio support is not yet good enough. It seems to occupy a lot of memory and Intellisense does not seem to work as expected. Mozilla team really needs to work to improve this.</p>
-<p>Let's talk about the code. Remember, while working with code from mozilla-central, there are many unnecessary directories included with Mozilla-central. Documentation on the directory structure is here: <a href-"https://developer.mozilla.org/en/docs/Mozilla_Source_Code_Directory_Structure">Mozilla_Source_Code_Directory_Structure</a></p>
+<p>Let's talk about the code. Remember, while working with code from mozilla-central, there are many unnecessary directories included with Mozilla-central. Documentation on the directory structure is here: <a href="https://developer.mozilla.org/en/docs/Mozilla_Source_Code_Directory_Structure">Mozilla_Source_Code_Directory_Structure</a></p>
 <ul><li>Windows wmain function resides in <a href="http://lxr.mozilla.org/mozilla-central/source/toolkit/xre/nsWindowsWMain.cpp?force=1">toolkit\xre\nsWindowMain.cpp</a></li>
 <li><a href="https://developer.mozilla.org/en/docs/Building_Firefox_with_Debug_Symbols">Then, it calls the main function in: <a href="http://lxr.mozilla.org/mozilla-central/source/browser/app/nsBrowserApp.cpp?force=1">browser\app\nsBrowserApp.cpp</a> which then calls do_main function in the same file</a></li>
 <li>Mouse wheel, move etc functions reside <a href="http://lxr.mozilla.org/mozilla-central/source/widget/windows/nsWindow.cpp?force=1">widget/windows/nsWindow.cpp</a></li></ul>
 <p>You can browse mozilla source code online at: <a href="http://mxr.mozilla.org/mozilla-central/">http://mxr.mozilla.org/mozilla-central</a></p>
 
 <h4>Including Your Favorite Extensions with Your Custom Built Firefox</h4>
-<p>First, extract extensions. They are usually zip files. Copy extracted directory to dist/bin/browser/extensions. For example, if we want to include <a href="http://hola.org/">hola extension</a> first we have to download the xpi file and rename it to zip. After extraction it gives a directory titled "jid1-4P0kohSJxU1qGg@jetpack". Hence, here are the steps to follow,</p>
+<p>First, extract extensions as they are usually zip archives. Copy extracted directory to dist/bin/browser/extensions. For example, if we want to include <a href="http://hola.org/">hola extension</a> first we have to download the xpi file and rename it to zip. After extraction it gives a directory titled "jid1-4P0kohSJxU1qGg@jetpack". Hence, here are the steps to follow,</p>
 
 <ul><li>First, we have to put deployed extension directory named "jid1-4P0kohSJxU1qGg@jetpack" into directory "browser\extensions"</li>
 <li>We have to add following contents to %APPDATA%\Mozilla\Firefox\Profiles\xxxxx.default\extensions.json</li></ul>
