@@ -277,7 +277,7 @@ Cleaning up to exit...</pre>
 <pre class="brush: bash; first-line: 1; tab-size: 5; toolbar: false;">livecd-iso-to-disk --format --msdos --reset-mbr ~/Downloads/Fedora-20-x86_64-Live-Desktop.iso /dev/sdc</pre>
 
 <h4>Using livecd-tools to create UEFI bootable USB Stick</h4>
-<p>If the OS in ISO supports persistent storage then you can enable persistent storage depending on space available on the USB storage device. Following command prepares a Live USB Media with 1 GB persistent storage.</p>
+<p>You need fat32 partition for EFI compatible bootable media. Directory structure changes too. Following command takes care of all of this,</p>
 <pre class="brush: bash; first-line: 1; tab-size: 5; toolbar: false;"># livecd-iso-to-disk --format --reset-mbr --efi ~/Downloads/Fedora-Live-Desktop-x86_64-20-1.iso</pre>
 
 <h4>Using livecd-tools to create Live USB Media with persistent storage</h4>
