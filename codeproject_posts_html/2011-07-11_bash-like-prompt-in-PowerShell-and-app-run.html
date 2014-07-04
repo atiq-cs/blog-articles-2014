@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--------------------------------------------------------------------------->  
+<!--                           INTRODUCTION                                
+
+ The Code Project article submission template (HTML version)
+
+Using this template will help us post your article sooner. To use, just 
+follow the 3 easy steps below:
+ 
+     1. Fill in the article description details
+     2. Add links to your images and downloads
+     3. Include the main article text
+
+That's all there is to it! All formatting will be done by our submission
+scripts and style sheets. 
+
+-->  
+<!--------------------------------------------------------------------------->  
+<!--                        IGNORE THIS SECTION                            -->
+<html>
+<head>
+<title>The Code Project</title>
+<Style>
+BODY, P, TD { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10pt }
+H2,H3,H4,H5 { color: #ff9900; font-weight: bold; }
+H2 { font-size: 13pt; }
+H3 { font-size: 12pt; }
+H4 { font-size: 10pt; color: black; }
+PRE { BACKGROUND-COLOR: #FBEDBB; FONT-FAMILY: "Courier New", Courier, mono; WHITE-SPACE: pre; }
+CODE { COLOR: #990000; FONT-FAMILY: "Courier New", Courier, mono; }
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.codeproject.com/App_Themes/NetCommunity/CodeProject.css">
+</head>
+<body bgcolor="#FFFFFF" color=#000000>
+<!--------------------------------------------------------------------------->  
+
+
+<!-------------------------------     STEP 1      --------------------------->
+<!--  Fill in the details (CodeProject will reformat this section for you) -->
+
+<pre>
+Title:       Bash-like Prompt in Powershell and App run etc
+Author:      Saint Atique
+Email:       unix9n@gmail.com
+Language:    Powershell, .Net Framework
+Platform:    Windows
+Technology:  Powershell
+Level:       Intermediate
+Description: Trips and tricks on Powershell
+Section      Scripting
+SubSection   Powershell
+License:     GPL v3
+</pre>
+
+<!-------------------------------     STEP 2      --------------------------->
+<!--  Include download and sample image information.                       --> 
+
+<ul class=download>
+<li><a href="Article_src.zip">Download source - XXX Kb</a></li>
+</ul>
+
+<p><img src="PS01.png" alt="Sample Image - maximum width is 600 pixels" width=600 height=330></p>
+
+
+<!-------------------------------     STEP 3      --------------------------->
+
+<!--  Add the article text. Please use simple formatting (<h2>, <p> etc)   -->
+
+<h2>Introduction</h2>
+
+<p>In batch scripts writing code to do simple things were tedious. Powershell lets us do things easier where it also excels providing strong support to access and control system resources using .Net Framework. I cannot but mention some of the code snippets I had written and was of good use.</p>
+
+<h2>Background</h2>
+
+<p>I was missing bash prompt of Unix/Linux when I moved to powershell. Bash prompt does not show the entire directory path and have a home dir sign. That keeps the terminal clean.
+
+Due to security reasons many restrictions have been applied in powershell. For example, you have a script delay.ps1 You cannot run it by entering delay though execution policy is enabled. I rather decided to use a prefix ss to run all this programs. Now with provided script we can enter ss scriptname to run a script simply (works if we even omit extension or .\).</p>
+
+<h2>Using the code</h2>
+
+<p>Put the code of the file Microsoft.PowerShell_profile.ps1 in your profile and ss.ps1 where you want to keep your scripts.</p>
+
+<p>You need to have execution policy enabled on your PC to run powershell scripts. To enable this for current user you can run
+ <code>PS > set-executionpolicy Unrestricted -scope currentuser</code></p>
+
+<h2>Inside the Scripts</h2>
+
+<p>In batch scripts writing code to do simple things were tedious. Powershell lets us do things easier where it also excels providing strong support to access and control system resources using .Net Framework. I cannot but mention some of the code snippets I had written and was of good use.</p><p>
+For example, if we want to use Unix like prompt in our Windows Powershell we use following code which includes two functions, prompt and get-diralias. get-diralias function returns a grave sign in case it meets our set home directory which is <code>E:\Scripts</code> here.</p><p>
+If it is not a home directory then we find a backward slash (\) Take only the last part after that slash as substring. Otherwise if we find that current location string ends with \ we know that we are in root of a drive. In that case we return only drive and the colon.
+</p>
+<pre>$env:homedir=E:\Scripts
+# get the last part of path
+function get-diralias ([string]$loc) {
+    # check if we are in our home script dir
+    # in that case return grave sign
+    if ($loc.Equals($env:homedir)) {
+        return "~"
+    }
+    
+    # if it ends with \ that means we are in root of drive
+    # in that case return drive
+    $lastindex = [int] $loc.lastindexof("\")
+    if ($loc.EndsWith("\")) {
+        return $loc.Remove($lastindex, 1)
+    }
+    
+    # Otherwise return only the dir name
+    $lastindex += 1
+    $loc = $loc.Substring($lastindex)
+    return $loc
+}
+
+# Set prompt
+function prompt {
+    return "[sa@matrix $(get-diralias($(get-location)))]$ "
+}
+</pre>
+
+<p>We add another function ss which provide following functions. </p>
+
+<pre>
+# To go home
+$ ss cd
+
+# To edit powershell profile script
+$ ss ep
+
+# To open a text/script file with Powershell ISE 
+$ ss ise filename.ps1
+
+# List programs which are available in app path that can be run with simply putting with ss i.e., ss notepad++ or ss chrome
+$ ss list-programs
+
+# run a program from apppath, app path in registry is a collection of paths when you run a command
+# from run dialog box it looks for executable file paths there (correct me if I am wrong)
+$ ss chrome
+Or
+$ ss devenv
+</pre>
+
+<p>ss ise command will create the file if provided file path doesn’t exist.
+Let’s go into the script. We have the godfather function ss which manages the commandline arguments in proper way, gives a warning if no commandline is provided and calls the ss.ps1 script with those arguments. I did this intentionally to keep the profile file smaller.
+</p>
+<pre>function ss() {
+    if ($args.Count -lt 1) {
+        return "Please provide correct commandline"
+    }
+    elseif ($args.Count -eq 1) {
+        & "$env:homedir\ss.ps1" $args
+    }
+    else {
+        $cmd = $args[0]
+        # echo "cmd: `"$cmd`""
+        $cargs = [string]$args
+        # echo "cargs: `"$cargs`""
+        $cargs = $cargs.TrimStart($cmd)
+        $cargs = $cargs.TrimStart()
+        # echo "cargs: `"$cargs`""
+        & "$env:homedir\ss.ps1" $args[0] $cargs
+    }
+    
+    return ""
+}
+</pre>
+
+<p>ss cd or ss ep these functionalities are easy to understand. Initially code for ss ise was more simple. But ise seems to behave unstable sometimes. It’s why I corrected the commandline to specify absolute file path instead of relative one i.e., <code>.\filename.ext</code> is relative where <code>e:\folder\filename.ext</code> is absolute file path.</p>
+
+<pre># ss ise: call powershell_ise editor
+if ($cmd.ToLower().Equals("ise")) {
+    $cargs = [string]$args[1]
+    
+    $cpath = $cargs
+    # if the file 
+    if ($cargs.IndexOf("\") -eq "-1") {
+        $cpath =$(get-location).path+"\$cargs"
+    }
+    elseif ($cargs.StartsWith("..\")) {
+        $cpath =$(get-location).path
+        $cpath =$cpath.Substring(0, $cpath.LastIndexOf("\"))
+        $cpath +=$cargs.TrimStart("..")
+    } 
+    elseif ($cargs.StartsWith(".\")) {
+        $cpath =$(get-location).path+$cargs.TrimStart(".")
+    }
+    
+    if (Test-Path $cpath) {
+        # echo "1. Path: $cpath"
+        & $env:SystemRoot\system32\WindowsPowerShell\v1.0\powershell_ise.exe $cpath
+    }
+    else {
+        echo "Creating File $cpath as it does not exist."
+        echo "# Date: $(get-date)"> $cpath
+        echo "# Author: $env:USERNAME">> $cpath
+        & $env:SystemRoot\system32\WindowsPowerShell\v1.0\powershell_ise.exe $cpath
+    }
+    break
+}
+</pre>
+
+<p>To run programs from app path ss initially looks if following registry entry exist:
+<code>HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\$(cmdArgument).exe</code>
+If it finds it takes default value of that key which is the filepath for the executable. We remove the quotation signs from both ends.
+</p>
+
+<pre>    if (Test-Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\$cmd.exe") {
+        echo "Starting program $origcmd"
+        $regitem = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\$cmd.exe"
+        # Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\notepad++.exe"
+        $regcmd = $regitem."(default)"
+        # Modify the command so that arguments don't get splitted
+        $regcmd = $regcmd.TrimStart("`"")
+        $regcmd = $regcmd.TrimEnd("`"")
+        & "$regcmd" $cargs
+        break
+    }
+    elseif (!(Test-Path "$env:homedir\$cmd.ps1")) {
+        echo "Please check your command"
+        break
+    }
+</pre>
+
+
+<p>Hope these scripts help you automate your works. Thank you.</p>
+
+<h2>History</h2>
+
+<p>Initial Release - June 20, 2011</p>
+
+<!-------------------------------    That's it!   --------------------------->
+</body>
+
+</html>

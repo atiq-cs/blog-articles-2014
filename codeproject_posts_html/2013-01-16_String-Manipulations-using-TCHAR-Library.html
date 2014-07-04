@@ -1,173 +1,133 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<!--------------------------------------------------------------------------->  
-<!--                           INTRODUCTION                                
-
- The Code Project article submission template (HTML version)
-
-Using this template will help us post your article sooner. To use, just 
-follow the 3 easy steps below:
- 
-     1. Fill in the article description details
-     2. Add links to your images and downloads
-     3. Include the main article text
-
-That's all there is to it! All formatting will be done by our submission
-scripts and style sheets. 
-
--->  
-<!--------------------------------------------------------------------------->  
-<!--                        IGNORE THIS SECTION                            -->
-<html>
-<head>
-<title>The Code Project</title>
-<Style>
-BODY, P, TD { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10pt }
-H2,H3,H4,H5 { color: #ff9900; font-weight: bold; }
-H2 { font-size: 13pt; }
-H3 { font-size: 12pt; }
-H4 { font-size: 10pt; color: black; }
-PRE { BACKGROUND-COLOR: #FBEDBB; FONT-FAMILY: "Courier New", Courier, mono; WHITE-SPACE: pre; }
-CODE { COLOR: #990000; FONT-FAMILY: "Courier New", Courier, mono; }
-</style>
-<link rel="stylesheet" type="text/css" href="http://www.codeproject.com/App_Themes/NetCommunity/CodeProject.css">
-</head>
-<body bgcolor="#FFFFFF" color=#000000>
-<!--------------------------------------------------------------------------->  
-
-
-<!-------------------------------     STEP 1      --------------------------->
-<!--  Fill in the details (CodeProject will reformat this section for you) -->
-
-<pre>
-Title:       String manipulations in Unicode
-Author:      Saint Atique
-Email:       unix9n@gmail.com
-Language:    WinAPI, VC++, MFC
-Platform:    Windows
-Technology:  MFC
-Level:       Beginner
-Description: Tricks and trips on String manipulations in Unicode (Windows Programming context)
-Section      Windows
-SubSection   Visual C++
-License:     GPL v3
-</pre>
-
-<!-------------------------------     STEP 2      --------------------------->
-<!--  Include download and sample image information.                       --> 
-
-
-<!-------------------------------     STEP 3      --------------------------->
-
-<!--  Add the article text. Please use simple formatting (<h2>, <p> etc)   -->
-
 <h2>Introduction</h2>
 
-<p>Whether you write a Win32 application or MFC application you may want to add Unicode support. Unicode gives you the freedom to include texts from any language in your application. So how to manipulate these strings in Unicode? I show you how.</p>
+<p>To write Win32 application or MFC application, it may happen that you want to add Unicode support. Unicode gives you the freedom to include texts from any language in your application. On the contrary despite the advantages of Unicode you may decide that you will never use Unicode in your program. In both cases, TCHAR library will help you a lot.&nbsp;</p>
 
-<h2>Using the code</h2>
+<h2>Tips and Tricks&nbsp;</h2>
 
-<p>Sorry, this tricks and tips doesn't include code. Rather I give some hints for beginners here.</p>
+<p>If you want to use Unicode in project properties, select &quot;Use Unicode Character Set&quot; as character set. From now on, you can easily use Unicode strings in your code wrapping with a macro. The same macro works fine even if you selected not to use &quot;Unicode Character Set&quot;.&nbsp;Code remains same while you have the advantage.&nbsp;</p>
 
-<p>To use a Unicode string in as a function parameter, wrap it with function _T or TEXT macro. For example,</p>
+<p>To use a Unicode <code>string </code>as a function parameter, wrap it with macro <code>_T</code> or <code>TEXT </code>macro. For example:</p>
 
-<pre>AfxMessageBox(_T("You clicked it!"));</pre>
+<pre lang="C++">
+AfxMessageBox(_T(&quot;You clicked it!&quot;));  </pre>
 
-<p>Whenever you use Unicode try to avoid the string data type char or <code>char*</code>. Because before using them in your controls you have to convert them. And repetitive conversion may be tedious.</p>
+<p><code>_T()</code> and <code>TEXT()</code> are macros from <code>tchar </code>header file. <code>TCHAR </code>library automatically maps functions to Unicode when Unicode is defined. Using <code>TCHAR </code>library helps us to move code to multibyte stream (or unicode) whenever required. Try to avoid primitive data type <code>char</code> array or <code>char *</code>. This is because before using them in your controls, you have to convert them. Repetitive conversion may be tedious.&nbsp;</p>
 
-<p>Use <code>TCHAR</code> instead of char and use <code>TCHAR*</code> instead of <code>char*</code>. <code>TCHAR*</code> can be written <code>LPTSTR</code> . For const <code>TCHAR*</code> you may write <code>LPCTSTR</code>  which in required when a string is passed as an argument to a function where modification should be restricted.</p>
+<p>Use <code>TCHAR</code> instead of <code>char </code>and use <code>TCHAR*</code> instead of <code>char*</code>. <code>TCHAR*</code> can be written <code>LPTSTR</code>. For <code>const TCHAR*</code>, you may write <code>LPCTSTR</code> which is required when a <code>string </code>is passed as an argument to a function where modification should be restricted.</p>
 
-<p>To calculate length of strings use _tcslen function,</p>
-<pre>len = _tcslen(str);</pre>
+<p>To calculate length of <code>string</code>s, use <code>_tcslen </code>function:</p>
 
-<p>To compare strings instead of strcmp and strncmp use _tcscmp  and _tcsncmp. Here’s an example</p>
-<pre>if (!_tcsncmp(line, _T("desiredtext"), 11))
-	AfxMessageBox(_T(“Got desired text.”));
-</pre>
+<pre lang="C++">
+len = _tcslen(str); </pre>
 
-<p>For copying string _tcscpy_s and _tcsncpy_s instead of strcpy and strncpy</p>
-<pre>_tcsncpy_s(dest, srcstr, 20);</pre>
+<p>To compare <code>string</code>s instead of <code>strcmp </code>and <code>strncmp</code>, use <code>_tcscmp </code>and <code>_tcsncmp</code>. Here&rsquo;s an example:</p>
 
-<p>Note, strpy or _tcscpy_s don’t put a null after copying the string so remember to set null after copying the string when required.</p>
+<pre lang="C++">
+if (!_tcsncmp(line, _T(&quot;desiredtext&quot;), 11))
+    AfxMessageBox(_T(&ldquo;Got desired text.&rdquo;));</pre>
 
-<p> For string concatenation use _tcscat_s and _tcsncat_s instead of strcat and strncat. Here 2nd parameter is the size of the destination string.</p>
-<pre>_tcsncat_s(timestamp, 20, str, i);</pre>
+<p>For copying <code>string _tcscpy_s</code> and <code>_tcsncpy_s</code> instead of <code>strcpy </code>and <code>strncpy</code>:</p>
 
-<p>For splitting tokens use _tcstok_s instead of strtok.</p>
-<pre><code>LPTSTR</code>  next_token;
-token = _tcstok_s(str, delim, &next_token);</pre>
+<pre lang="C++">
+_tcsncpy_s(dest, srcstr, 20);</pre>
 
-<p>There is another issue with Unicode is that some functions are not available for example atoi. There is a way to convert from wide chars to integer demonstrated in msdn but I didn’t find for CString or <code>LPTSTR</code> . So here’s a function I wrote to to perform atoi,</p>
+<p>Note, <code>strpy </code>or <code>_tcscpy_s</code>, don&rsquo;t put a <code>null </code>after copying the <code>string </code>so remember to set <code>null </code>after copying the <code>string </code>when required.</p>
 
-<pre>int GetEquivValue(<code>TCHAR</code> ch, int base) {
-	int diff = _T('a') - _T('A');
+<p>For <code>string </code>concatenation, use <code>_tcscat_s</code> and <code>_tcsncat_s</code> instead of <code>strcat </code>and <code>strncat</code>. Here, the 2<sup>nd</sup> parameter is the size of the destination <code>string</code>.</p>
 
-	// Invalid base
-	if (base &gt;= 16)
-		return 0;
+<pre lang="C++">
+_tcsncat_s(timestamp, 20, str, i);</pre>
 
-	if (base == 16) {
-		// make upper case if lowercase
-		if (ch &gt;= _T('a') && ch &lt;= _T('z'))
-			ch -= diff;
+<p>For splitting tokens, use <code>_tcstok_s</code> instead of <code>strtok</code>.</p>
 
-		diff = _T('A') - _T('0');
+<pre lang="C++">
+LPTSTR  next_token;
+token = _tcstok_s(str, delim, &amp;next_token);</pre>
 
-		if (ch &gt;= _T('A') && ch &lt;= _T('F'))
-			return (ch-diff);
-	}
+<p>To convert a <code>string </code>to integer, you can use <code>_ttoi()</code> function.</p>
 
-	if (ch &gt;= _T('0') && ch &lt;= _T('9'))
-		return (ch - _T('0'));
-	return 0;
+<pre lang="C++">
+CString str = _T(&quot;10&quot;);
+CString temp;
+temp.Format(_T(&quot; length: %d&quot;), _ttoi(str));
+AfxMessageBox(str+temp);</pre>
+
+<p>When I didn&#39;t know about this handy function I wrote the following function to do the same task. Having a look at the function may help you as an example code:&nbsp;</p>
+
+<pre lang="C++">
+int GetEquivValue(TCHAR ch, int base) {
+    int diff = _T(&#39;a&#39;) - _T(&#39;A&#39;);
+
+    // Invalid base
+    if (base &gt;= 16)
+        return 0;
+
+    if (base == 16) {
+        // make upper case if lowercase
+        if (ch &gt;= _T(&#39;a&#39;) &amp;&amp; ch &lt;= _T(&#39;z&#39;))
+            ch -= diff;
+
+        diff = _T(&#39;A&#39;) - _T(&#39;0&#39;);
+
+        if (ch &gt;= _T(&#39;A&#39;) &amp;&amp; ch &lt;= _T(&#39;F&#39;))
+            return (ch-diff);
+    }
+
+    if (ch &gt;= _T(&#39;0&#39;) &amp;&amp; ch &lt;= _T(&#39;9&#39;))
+        return (ch - _T(&#39;0&#39;));
+    return 0;
 }
 
-int SAatoib(<code>LPTSTR</code>  str, int base) {
-	int res = 0;
-	int i, len, tmp;
+int SAatoib(LPTSTR  str, int base) {
+    int res = 0;
+    int i, len, tmp;
 
-	len = _tcslen(str);
-	for (i=0; i&lt;len; i++) {
-		tmp = GetEquivValue(str[i], base);
-		res = res*base + tmp;
-	}
-	return res;
-}
-</pre>
+    len = _tcslen(str);
+    for (i=0; i&lt;len; i++) {
+        tmp = GetEquivValue(str[i], base);
+        res = res*base + tmp;
+    }
+    return res;
+} </pre>
 
-<p>To convert a string to decimal number use,</p>
-<pre>int decVal = SAatoib((<code>LPTSTR</code> )NumStr, 10);</pre>
+<p>Using these functions to convert a <code>string </code>to decimal number, you have to write like this:&nbsp;</p>
 
-<p>To convert a string to hexadecimal number use,</p>
-<pre>int decVal = SAatoib((<code>LPTSTR</code> )NumStr, 16);</pre>
+<pre lang="C++">
+int decVal = SAatoib((LPTSTR )NumStr, 10);  </pre>
 
-<p>To convert a string to octal number use,</p>
-<pre>int decVal = SAatoib((<code>LPTSTR</code> )NumStr, 8);</pre>
+<p>To convert a <code>string </code>to hexadecimal number, you have to write like this:&nbsp;</p>
 
-<p>To format the string like printf you can always use CString::Format function. For example, to get IP address,</p>
-<pre>unsigned long int ipsegval[4] = {1, 2, 3, 4};
+<pre lang="C++">
+int decVal = SAatoib((LPTSTR )NumStr, 16);  </pre>
+
+<p>To convert a <code>string </code>to octal number, you have to write:&nbsp;</p>
+
+<pre lang="C++">
+int decVal = SAatoib((LPTSTR )NumStr, 8);  </pre>
+
+<p>To format the <code>string </code>like <code>printf</code>, you can use <code>CString::Format </code>function. For example, to get IP address:&nbsp;</p>
+
+<pre lang="C++">
+unsigned long int ipsegval[4] = {1, 2, 3, 4};
 CString ip;
-ip.Format(_T("%u.%u.%u.%u"), ipsegval[0], ipsegval[1], ipsegval[2], ipsegval[3]);
-</pre>
+ip.Format(_T(&quot;%u.%u.%u.%u&quot;), ipsegval[0], ipsegval[1], ipsegval[2], ipsegval[3]);</pre>
 
-<p>Now for example, you have a CString. But you need it as const <code>char*</code> or <code>char*</code>
-The cast to <code>LPCTSTR</code>  from CString is valid one but cast to const <code>char*</code> isn’t valid. But there is a way. Here’s an example,
-</p>
-<pre>CString ipaddrstr(_T(“1.2.3.4”));
+<p>For example, you have a <code>CString</code>. But you need it as <code>const char*</code> or <code>char*</code> The cast to <code>LPCTSTR</code> from <code>CString </code>is a valid one, but cast to <code>const char*</code> isn&rsquo;t valid. But there is a way. Here&rsquo;s an example:</p>
+
+<pre lang="C++">
+CString ipaddrstr(_T(&ldquo;1.2.3.4&rdquo;));
 CStringA ipaddrstrA(ipaddrstr);
-ipaddr = inet_addr(ipaddrstrA);
-</pre>
+ipaddr = inet_addr(ipaddrstrA);</pre>
 
-<h2>Points of Interest</h2>
+<p><strong>Note</strong>: <code>inet_addr</code> function requires <code>char *</code>.</p>
 
-<p>I know there is another approach using wide characters always. That also that restricts the application to run on earlier operating systems like Windows XP if that doesn’t have Unicode support installed.
-The reason of this post is that many beginners cannot find an easy way to understand how to manipulate Unicode in windows applications properly.
-</p>
+<p>I hope this post helps beginners.&nbsp;</p>
 
-<h2>History</h2>
+<h2>History&nbsp;</h2>
 
-<p>...</p>
-
-<!-------------------------------    That's it!   --------------------------->
-</body>
-
-</html>
+<ul>
+	<li>16th January, 2012: Version 4&nbsp;</li>
+	<li>11<sup>th</sup> May, 2011: Version 3</li>
+	<li>9<sup>th</sup> May, 2011: Version 2</li>
+	<li>6<sup>th</sup> May, 2011: Initial version</li>
+</ul>
