@@ -65,7 +65,7 @@
 
 <p>Here&#39;s a screenshot of Windows Media Player with the plugin running:</p>
 
-<p><img src="http://2.bp.blogspot.com/-V0oRNps1Au0/U2iK0QImHqI/AAAAAAAABeo/GCY-oghUyg8/s1600/Despicable+Me2_screenshot_plugin+running.png" /></p>
+<p><img src="Despicable_Me2_screenshot_plugin_running.png" /></p>
 
 <p>This article discusses implementation, logic, source code and building procedure of a Subtitle Plug-in for Windows Media Player. If you are interested in understanding the source-code you can go through the code related discussions. Otherwise, to install this plugin you can skip to the section, <a href="#heading11">Installing Plug-in without building from Code</a>. Updated source-code of the project is available at <a href="https://code.google.com/p/wmp-native-subtitle-plugin/source/browse/">Google Code</a></p>
 
@@ -129,7 +129,7 @@ Param=&quot;FALLBACK_LCID = 1033&quot;
 
 <p>I copied 3 files to &quot;C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcprojects&quot;. Afterwards, we are able to create a new plugin project following <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/dd564577(v=vs.85).aspx" target="_blank" title="MSDN - Using the Plug-in Wizard with Visual Studio">Using the Plug-in Wizard with Visual Studio</a>. Here&#39;s a screenshot that displays Windows Media Player Plugin in New Project dialog box.</p>
 
-<p><img src="http://3.bp.blogspot.com/-1oZGn_gtjpM/U2iKzZ7foQI/AAAAAAAABec/fmC_h8C-bIo/s1600/01_WMP+Plugin.png" /></p>
+<p><img src="01_WMP_Plugin.png" /></p>
 
 <h3><a id="heading0302" name="heading0302">Choosing Plugin Type</a></h3>
 
@@ -154,7 +154,7 @@ Param=&quot;FALLBACK_LCID = 1033&quot;
 
 <p>We are going to work on Background Plug-in as our plugin does some operations in the background to set up the caption when a media file is opened. For this reason, when Media Player Plugin Wizard dialog appears we select UI Plugin as displayed on the screen-shot below,</p>
 
-<p><img src="http://3.bp.blogspot.com/-NPmQFLjyF0Q/U2iKzUcDX4I/AAAAAAAABeY/0YBYDzlC38M/s1600/02_UI_plugin.png" /></p>
+<p><img src="02_UI_plugin.png" /></p>
 
 <p>Afterwards, Visual Studio creates required files and templates for the project that are ready to modify.</p>
 
@@ -544,7 +544,7 @@ TEXT_ENCODE_FORMAT get_text_file_encoding(__in const unsigned char* inStr) {
 
 <h3><a id="heading06" name="heading06">Plugin Properties/Configuration Dialog Box</a></h3>
 
-<p><img src="http://4.bp.blogspot.com/-lJjQfq6zGso/U2iOT-YiE1I/AAAAAAAABe0/4Z1NNotVkDI/s1600/Plugin_Properties.png" /></p>
+<p><img src="Plugin_Properties.png" /></p>
 
 <p>There are several issues to deal with while including a plugin configuration/property dialog box</p>
 
@@ -703,7 +703,7 @@ LRESULT OnOK(WORD wNotifyCode, WORD wID, HWND hwndCtl, BOOL&amp; fHandled)
 
 <p>When we load it with the relevant media file the rendering of caption looks like the one in screenshot,</p>
 
-<p><img src="http://4.bp.blogspot.com/-x6eOAsGLkk4/U2uJ37tm_yI/AAAAAAAABgA/v_tM1W5TSkQ/s1600/Unicode_Subtitle_without_html_encode.png" /></p>
+<p><img src="Unicode_Subtitle_without_html_encode.png" /></p>
 
 <p>Reason can be one of the two. One is that Windows Media Player does not really support utf-8. It only parses ANSI. In that case, when you split a 2 byte Unicode character into two you get two ANSI characters. Media Player is displaying those separated ANSI characters. Other reason can be that, probably we have missed something in documentation, merely putting Unicode chars is not probably the option. Probably, an expert in the field can shed light on it.</p>
 
@@ -719,7 +719,7 @@ LRESULT OnOK(WORD wNotifyCode, WORD wID, HWND hwndCtl, BOOL&amp; fHandled)
 
 <p>Here&#39;s the screenshot when this smi is loaded with relevant media file,</p>
 
-<p><img src="http://4.bp.blogspot.com/-pG1lVOmvwUE/U2uJ3wJT1GI/AAAAAAAABgE/awJGXV7Ukrw/s1600/Wmp_Unicode_caption.png" /></p>
+<p><img src="Wmp_Unicode_caption.png" /></p>
 
 <p>1586, 1606, 1586 etc are the decimal Unicode value for the respective Arabic letter. Let&#39;s have a peek into the implementation in source file (SAMIConversion.cpp),</p>
 
@@ -791,7 +791,7 @@ regsvr32 &quot;F:\Sourcecodes\Plugin-App\WMPNativeSubtitle\x64\Release\WMPNative
 
 <p>When it is successful a dialog box confirms it.</p>
 
-<p><img src="http://2.bp.blogspot.com/-NdezfoeQ4Xs/U2uZvy5MTTI/AAAAAAAABgY/zuY_sjKs4H0/s1600/dll_register.png" /></p>
+<p><img src="dll_register.png" /></p>
 
 <p>After that you have to ensure whether local caption is enabled in Windows Media Player. Please refer to section: <strong>Enabling Caption/Subtitle</strong> and follow all of the step to enable the plugin finally.</p>
 
@@ -809,11 +809,11 @@ regsvr32 &quot;F:\Sourcecodes\Plugin-App\WMPNativeSubtitle\x64\Release\WMPNative
 
 <p>To enable captions to be shown from local source, you have to go to options,</p>
 
-<p><img src="http://1.bp.blogspot.com/-KcQQ74rNeCA/U2igaH-ohOI/AAAAAAAABfg/DWxZRWFnCNc/s1600/WMP_options.png" /></p>
+<p><img src="WMP_options.png" /></p>
 
 <p>Then navigate to &quot;Security&quot; tab and tick the check box saying &quot;Show local captions when present&quot; as displayed in screenshot below,</p>
 
-<p><img src="http://3.bp.blogspot.com/-J40w5QkENyk/U2iegpJLa_I/AAAAAAAABfI/nrUkc-VqcGk/s1600/Enable_local_caption.png" /></p>
+<p><img src="Enable_local_caption.png" /></p>
 
 <p>And click ok to save settings.</p>
 
@@ -821,7 +821,7 @@ regsvr32 &quot;F:\Sourcecodes\Plugin-App\WMPNativeSubtitle\x64\Release\WMPNative
 
 <p>This step to enable default English caption, lyrics, subtitle is also important. Without enabling it captions won&#39;t be displayed.</p>
 
-<p><img src="http://1.bp.blogspot.com/-h3Tzqc2F8LM/U2ih77X8p5I/AAAAAAAABfs/bi1MUqAOChI/s1600/Turn_caption_on_crop.png" /></p>
+<p><img src="Turn_caption_on_crop.png" /></p>
 
 <p>At this stage subtitle/caption will be displayed if smi file is available with same name as of video file name. However, to enable captions for subrip (.srt) files we have to proceed to next step.</p>
 
@@ -829,7 +829,7 @@ regsvr32 &quot;F:\Sourcecodes\Plugin-App\WMPNativeSubtitle\x64\Release\WMPNative
 
 <p>Our final step is to enable the plugin. To do that, we have to navigate to Plug-Ins tab from More options. And then select &quot;Background&quot; from Category. Then, we must enable the plugin by checking the tick box on the left of the Plugin Name.</p>
 
-<p><img src="http://2.bp.blogspot.com/-9DE86yeFeF4/U2iegjT0KVI/AAAAAAAABfE/toTBmlI5zlo/s1600/Enable_Background_plugin.png" /></p>
+<p><img src="Enable_Background_plugin.png" /></p>
 
 <p>At this stage, With all these steps properfly followed Windows Media Player is now capable of displaying Captions for both .srt and .smi files.</p>
 

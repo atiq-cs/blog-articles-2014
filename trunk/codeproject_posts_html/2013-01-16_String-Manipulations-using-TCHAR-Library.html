@@ -1,10 +1,10 @@
 <h2>Introduction</h2>
 
-<p>To write Win32 application or MFC application, it may happen that you want to add Unicode support. Unicode gives you the freedom to include texts from any language in your application. On the contrary despite the advantages of Unicode you may decide that you will never use Unicode in your program. In both cases, TCHAR library will help you a lot.&nbsp;</p>
+<p>To write Win32 application or MFC application using C++ you may decide to support Unicode or not. TCHAR library provides us macros so that we can easily switch between those two options.&nbsp;</p>
 
 <h2>Tips and Tricks&nbsp;</h2>
 
-<p>If you want to use Unicode in project properties, select &quot;Use Unicode Character Set&quot; as character set. From now on, you can easily use Unicode strings in your code wrapping with a macro. The same macro works fine even if you selected not to use &quot;Unicode Character Set&quot;.&nbsp;Code remains same while you have the advantage.&nbsp;</p>
+<p>If you want to use Unicode in project properties if Visual Studio Solution Explorer, you have to select &quot;Use Unicode Character Set&quot; as character set. After that, you can easily use Unicode strings in your code wrapping with a macro. The same macro works fine even if you selected not to use &quot;Unicode Character Set&quot;&nbsp;and you use the character set that ANSI supports for example, english alphabets.&nbsp;Code remains same while you have the advantage.&nbsp;</p>
 
 <p>To use a Unicode <code>string </code>as a function parameter, wrap it with macro <code>_T</code> or <code>TEXT </code>macro. For example:</p>
 
